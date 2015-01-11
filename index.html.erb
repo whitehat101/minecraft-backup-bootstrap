@@ -90,9 +90,9 @@
         chart   = new google.visualization.AreaChart(document.getElementById('backup-chart'))
         data    = google.visualization.arrayToDataTable(<%= backup_chart %>)
         options = {
-          title: 'Backup Filesize',
-          hAxis: {title: 'Size (B)'},
-          vAxis: {minValue: 0}
+          title: 'Backup Size',
+          hAxis: {title: 'Date'},
+          vAxis: {title: 'Size (MiB)', minValue: 0}
         }
 
         draw = function() { chart.draw(data, options) }

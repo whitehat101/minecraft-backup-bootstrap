@@ -3,6 +3,7 @@ require 'bundler/setup'
 require 'erb'
 require 'filesize'
 require 'rb-inotify'
+require 'json'
 
 Dir.chdir File.dirname(__FILE__)
 
@@ -22,21 +23,22 @@ rebuild_index = proc do
 
       file = "backups/#{parts[0..3].join '/'}/Backup-#{parts[0..3].join '-'}--#{parts[4..5].join '-'}.zip"
       bytes = File.size file
+      mib = Filesize.from("#{bytes} B").to_s('MiB')
 
       backups << {
         name: "#{parts[0]} #{Time.new *parts[1..5]}",
         url: "/#{file}",
-        size: Filesize.from("#{bytes} B").to_s('MiB'),
+        size: mib,
       }
 
-      backup_chart.unshift ["#{Time.new *parts[1..5]}", bytes]
+      backup_chart.unshift ["#{Time.new *parts[1..5]}", mib.to_f]
 
       total_bytes += bytes
     end
   end
   backup_chart.unshift %w(Date Bytes)
   backup_chart = JSON.generate backup_chart
-  total_bytes = Filesize.from("#{total_bytes} B").to_s('MiB')
+  total_bytes = Filesize.from("#{total_bytes} B").pretty
 
   template = ERB.new File.read("index.html.erb")
   File.write 'index.html', template.result(binding)
