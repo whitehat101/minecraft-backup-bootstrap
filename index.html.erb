@@ -53,7 +53,7 @@
               <tbody>
               <% backups.each_with_index do |backup,index| %>
                 <tr>
-                  <td><%= index %></td>
+                  <td><%= index + 1 %></td>
                   <td><a href="<%= backup[:url] %>"><%= backup[:name] %></a></td>
                   <td><%= backup[:size] %></td>
                 </tr>
