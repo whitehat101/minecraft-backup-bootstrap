@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="last-modified" content="<%= Time.now %>">
 
     <title>Agarian Skies</title>
 
@@ -41,7 +42,10 @@
         <div class="col-md-12">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">Server Backups</div>
+            <div class="panel-heading">Server Backups - <%= total_bytes %></div>
+            <div class="panel-body">
+              <div id="backup-chart" style="width:100%;height:300px"></div>
+            </div>
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -77,5 +81,24 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]})
+      google.setOnLoadCallback(function() {
+        var data, options, chart, draw
+
+        chart   = new google.visualization.AreaChart(document.getElementById('backup-chart'))
+        data    = google.visualization.arrayToDataTable(<%= backup_chart %>)
+        options = {
+          title: 'Backup Filesize',
+          hAxis: {title: 'Size (B)'},
+          vAxis: {minValue: 0}
+        }
+
+        draw = function() { chart.draw(data, options) }
+        draw()
+        $(window).resize(draw)
+      })
+    </script>
   </body>
 </html>
