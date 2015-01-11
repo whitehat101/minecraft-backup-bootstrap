@@ -4,6 +4,8 @@ require 'erb'
 require 'filesize'
 require 'rb-inotify'
 
+Dir.chdir File.dirname(__FILE__)
+
 stores = Dir['backups/*/backupstore.txt']
 
 rebuild_index = proc do
