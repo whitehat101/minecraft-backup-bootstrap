@@ -36,7 +36,7 @@ rebuild_index = proc do
       total_bytes += bytes
     end
   end
-  backup_chart.unshift %w(Date Bytes)
+  backup_chart.unshift %w(Date MiB)
   backup_chart = JSON.generate backup_chart
   total_bytes = Filesize.from("#{total_bytes} B").pretty
 

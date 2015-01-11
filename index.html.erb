@@ -31,7 +31,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Hello, Minecrafters!</h1>
-        <p>Come play with us. This is Minecraft, but with mods. Mostly the Agarian Skies modpack, but also with Turtles, item translocators, and magical green blocks!</p>
+        <p>Come play with us. This is Minecraft, but with mods. Mostly the Agarian Skies modpack, but also with turtles, item translocators, and magical green blocks!</p>
         <p><a class="btn btn-primary btn-lg" href="https://github.com/whitehat101/agrarian-skies-config" role="button">Get Setup &raquo;</a></p>
       </div>
     </div>
@@ -90,9 +90,8 @@
         chart   = new google.visualization.AreaChart(document.getElementById('backup-chart'))
         data    = google.visualization.arrayToDataTable(<%= backup_chart %>)
         options = {
-          title: 'Backup Size',
           hAxis: {title: 'Date'},
-          vAxis: {title: 'Size (MiB)', minValue: 0}
+          vAxis: {title: 'Size', minValue: 0}
         }
 
         draw = function() { chart.draw(data, options) }
